@@ -2,7 +2,7 @@
 name = "capitalist-tools"
 version = "0.1.0"
 description = "CLI and Telegram bot helpers for the Capitalist Integration API"
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 dependencies = []
 
 [project.scripts]
