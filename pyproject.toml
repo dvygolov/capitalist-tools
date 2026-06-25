@@ -1,0 +1,14 @@
+[project]
+name = "capitalist-tools"
+version = "0.1.0"
+description = "CLI and Telegram bot helpers for the Capitalist Integration API"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+capitalist = "capitalist_tools.cli:main"
+capitalist-telegram-bot = "capitalist_tools.telegram_bot:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

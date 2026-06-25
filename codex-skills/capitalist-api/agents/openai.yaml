@@ -1,0 +1,4 @@
+interface:
+  display_name: "Capitalist API"
+  short_description: "Operate Capitalist API accounts and deposits"
+  default_prompt: "Use $capitalist-api to check the current USDT TRC-20 deposit address."
