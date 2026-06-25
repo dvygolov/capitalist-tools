@@ -10,6 +10,8 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Any
 
+from .env import is_placeholder
+
 
 DEFAULT_BASE_URL = "https://api2.capitalist.net"
 
@@ -32,7 +34,7 @@ class CapitalistCredentials:
     def from_env(cls) -> "CapitalistCredentials":
         api_key = os.environ.get("CAPITALIST_API_KEY")
         api_secret = os.environ.get("CAPITALIST_API_SECRET")
-        if not api_key or not api_secret:
+        if is_placeholder(api_key) or is_placeholder(api_secret):
             raise CapitalistError(
                 "Set CAPITALIST_API_KEY and CAPITALIST_API_SECRET before calling the Capitalist API."
             )

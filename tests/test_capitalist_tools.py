@@ -1,6 +1,7 @@
 import unittest
 
 from capitalist_tools.client import calculate_signature, compact_json
+from capitalist_tools.env import is_placeholder
 from capitalist_tools.telegram_bot import BUTTON_TEXT, parse_allowed_users, should_answer
 
 
@@ -36,6 +37,13 @@ class CapitalistToolsTest(unittest.TestCase):
         self.assertTrue(should_answer("/start"))
         self.assertTrue(should_answer(BUTTON_TEXT))
         self.assertFalse(should_answer("hello"))
+
+    def test_placeholder_detection(self) -> None:
+        self.assertTrue(is_placeholder(None))
+        self.assertTrue(is_placeholder(""))
+        self.assertTrue(is_placeholder("replace_me"))
+        self.assertTrue(is_placeholder("your_telegram_bot_token"))
+        self.assertFalse(is_placeholder("real-looking-value"))
 
 
 if __name__ == "__main__":

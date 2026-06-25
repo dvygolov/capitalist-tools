@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from .client import CapitalistClient, CapitalistError
-from .env import load_env_file
+from .env import is_placeholder, load_env_file
 
 
 BUTTON_TEXT = "Текущий адрес USDT TRC20"
@@ -29,9 +29,9 @@ class BotConfig:
         load_env_file()
         token = os.environ.get("TELEGRAM_BOT_TOKEN")
         account = os.environ.get("CAPITALIST_ACCOUNT")
-        if not token:
+        if is_placeholder(token):
             raise RuntimeError("Set TELEGRAM_BOT_TOKEN.")
-        if not account:
+        if is_placeholder(account):
             raise RuntimeError("Set CAPITALIST_ACCOUNT.")
         allowed_ids, allowed_usernames = parse_allowed_users(os.environ.get("CAPITALIST_ALLOWED_USERS", ""))
         return cls(

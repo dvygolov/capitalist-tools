@@ -18,3 +18,10 @@ def load_env_file(path: str | os.PathLike[str] | None = None) -> None:
         value = value.strip().strip('"').strip("'")
         if key and key not in os.environ:
             os.environ[key] = value
+
+
+def is_placeholder(value: str | None) -> bool:
+    if value is None:
+        return True
+    normalized = value.strip().lower()
+    return not normalized or normalized == "replace_me" or normalized.startswith("your_")
