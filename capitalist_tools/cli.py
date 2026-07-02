@@ -23,15 +23,14 @@ def build_parser() -> argparse.ArgumentParser:
     rate.add_argument("--from", dest="currency_from", required=True, help="Source currency.")
     rate.add_argument("--to", dest="currency_to", required=True, help="Target currency.")
 
-    deposit = sub.add_parser("deposit-address", help="Get a crypto deposit address for an account and currency.")
-    deposit.add_argument("--account", required=True, help="Capitalist account code.")
+    deposit = sub.add_parser("deposit-address", help="Get a crypto deposit address for a currency.")
     deposit.add_argument("--currency", required=True, help="Currency code, for example USDTt for USDT TRC-20.")
 
     usdt = sub.add_parser(
         "usdt-trc20-address",
-        help="Get current USDT TRC-20 deposit address with autoconversion to the account.",
+        help="Get current USDT TRC-20 deposit address without autoconversion.",
     )
-    usdt.add_argument("--account", required=True, help="Capitalist account code to credit.")
+    usdt.add_argument("--account", help="Deprecated and ignored. Kept only so old commands do not fail.")
 
     status_doc = sub.add_parser("payment-document", help="Get payment status by document ID.")
     status_doc.add_argument("document_id")
@@ -58,9 +57,9 @@ def run(args: argparse.Namespace) -> Any:
     if args.command == "rate":
         return client.exchange_rate(args.currency_from, args.currency_to)
     if args.command == "deposit-address":
-        return client.deposit_address(args.account, args.currency)
+        return client.deposit_address(args.currency)
     if args.command == "usdt-trc20-address":
-        return client.usdt_trc20_autoconvert_address(args.account)
+        return client.usdt_trc20_address()
     if args.command == "payment-document":
         return client.payment_status_by_document(args.document_id)
     if args.command == "payment-request":

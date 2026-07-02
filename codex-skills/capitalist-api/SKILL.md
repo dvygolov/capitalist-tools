@@ -1,6 +1,6 @@
 ---
 name: capitalist-api
-description: "Work with Capitalist Integration API from Codex: signed API calls, account listing, exchange rates, payment status checks, API whitelist operations, and current cryptocurrency deposit addresses including USDT TRC-20 autoconversion. Use when the user asks about Capitalist, api2.capitalist.net, Capitalist accounts, Capitalist deposit addresses, USDT TRC20/TRC-20 addresses, Capitalist Telegram bots, or Capitalist API automation."
+description: "Work with Capitalist Integration API from Codex: signed API calls, account listing, exchange rates, payment status checks, API whitelist operations, and current cryptocurrency deposit addresses including USDT TRC-20 addresses without conversion. Use when the user asks about Capitalist, api2.capitalist.net, Capitalist accounts, Capitalist deposit addresses, USDT TRC20/TRC-20 addresses, Capitalist Telegram bots, or Capitalist API automation."
 ---
 
 # Capitalist API
@@ -10,13 +10,13 @@ description: "Work with Capitalist Integration API from Codex: signed API calls,
 Use the repository CLI first when it is available:
 
 ```powershell
-python -m capitalist_tools.cli usdt-trc20-address --account your_capitalist_account
+python -m capitalist_tools.cli usdt-trc20-address
 ```
 
 Or run the bundled skill wrapper from the repository root:
 
 ```powershell
-python codex-skills\capitalist-api\scripts\capitalist_cli.py usdt-trc20-address --account your_capitalist_account
+python codex-skills\capitalist-api\scripts\capitalist_cli.py usdt-trc20-address
 ```
 
 The CLI expects credentials in environment variables or a local `.env` file:
@@ -28,18 +28,17 @@ The CLI expects credentials in environment variables or a local `.env` file:
 For the Telegram bot, also require:
 
 - `TELEGRAM_BOT_TOKEN`
-- `CAPITALIST_ACCOUNT`
 - `CAPITALIST_ALLOWED_USERS`, comma-separated Telegram numeric IDs and/or usernames
 
 ## Workflows
 
-For current USDT TRC-20 deposit address with autoconversion, call:
+For current USDT TRC-20 deposit address without autoconversion, call:
 
 ```powershell
-python -m capitalist_tools.cli usdt-trc20-address --account <capitalist-account>
+python -m capitalist_tools.cli usdt-trc20-address
 ```
 
-Do not cache Capitalist autoconversion deposit addresses. Fetch a fresh value for each user-facing request.
+Do not cache Capitalist deposit addresses. Fetch a fresh value for each user-facing request.
 
 For account discovery:
 

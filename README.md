@@ -23,10 +23,10 @@ Default API base URL:
 https://api2.capitalist.net
 ```
 
-For USDT TRC-20 autoconversion addresses, the CLI and bot call:
+For USDT TRC-20 deposit addresses without autoconversion, the CLI and bot call:
 
 ```text
-GET /v1/depositAddressAutoUSDTt/{account}
+GET /v1/depositAddress/USDTt
 ```
 
 Those addresses are fetched fresh on every request and are not cached.
@@ -38,7 +38,6 @@ Create a local `.env` file or export variables in the shell:
 ```env
 CAPITALIST_API_KEY=your_api_key
 CAPITALIST_API_SECRET=your_api_secret
-CAPITALIST_ACCOUNT=your_capitalist_account
 CAPITALIST_BASE_URL=https://api2.capitalist.net
 
 TELEGRAM_BOT_TOKEN=your_telegram_bot_token
@@ -50,7 +49,7 @@ Prefer numeric Telegram user IDs in `CAPITALIST_ALLOWED_USERS`. Usernames are su
 ## CLI
 
 ```powershell
-python -m capitalist_tools.cli usdt-trc20-address --account your_capitalist_account
+python -m capitalist_tools.cli usdt-trc20-address
 python -m capitalist_tools.cli accounts --currency USDTt
 python -m capitalist_tools.cli rate --from USD --to EUR
 python -m capitalist_tools.cli whitelist list

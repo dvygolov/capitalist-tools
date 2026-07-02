@@ -103,13 +103,12 @@ class CapitalistClient:
     def exchange_rate(self, currency_from: str, currency_to: str) -> Any:
         return self.request("GET", "/v1/rate", params={"from": currency_from, "to": currency_to})
 
-    def deposit_address(self, account: str, currency: str) -> str:
-        payload = self.request("GET", f"/v1/depositAddress/{self._quote_path(account)}", params={"currency": currency})
+    def deposit_address(self, currency: str) -> str:
+        payload = self.request("GET", f"/v1/depositAddress/{self._quote_path(currency)}")
         return self._extract_address(payload)
 
-    def usdt_trc20_autoconvert_address(self, account: str) -> str:
-        payload = self.request("GET", f"/v1/depositAddressAutoUSDTt/{self._quote_path(account)}")
-        return self._extract_address(payload)
+    def usdt_trc20_address(self) -> str:
+        return self.deposit_address("USDTt")
 
     def payment_status_by_document(self, document_id: int | str) -> Any:
         return self.request("GET", f"/v1/payment/document/{self._quote_path(str(document_id))}")

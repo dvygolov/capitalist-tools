@@ -30,10 +30,10 @@ API access requires enabled API access and Google 2FA in the Capitalist account.
 
 ## Deposit Addresses
 
-- `GET /v1/depositAddress/{account}?currency=<code>`: get a cryptocurrency deposit address for the account and currency.
+- `GET /v1/depositAddress/{currency}`: get a cryptocurrency deposit address for the currency.
 - `GET /v1/depositAddressAutoUSDTt/{account}`: get a USDT TRC-20 deposit address that will automatically convert and credit the given account.
 
-The autoconversion address is not permanent. The docs warn not to save or cache it; the maximum validity guarantee is 8 hours.
+Deposit addresses are not permanent. The docs warn not to save or cache them; the maximum validity guarantee is 8 hours. Use `GET /v1/depositAddress/USDTt` when the user needs a plain USDT TRC-20 address without conversion. Use `depositAddressAutoUSDTt` only when the user explicitly wants automatic conversion to a Capitalist account.
 
 Currency codes relevant to USDT:
 

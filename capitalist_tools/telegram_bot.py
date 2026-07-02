@@ -19,7 +19,6 @@ BUTTON_TEXT = "Текущий адрес USDT TRC20"
 @dataclass(frozen=True)
 class BotConfig:
     token: str
-    account: str
     allowed_ids: frozenset[int]
     allowed_usernames: frozenset[str]
     poll_timeout: int = 30
@@ -28,15 +27,11 @@ class BotConfig:
     def from_env(cls) -> "BotConfig":
         load_env_file()
         token = os.environ.get("TELEGRAM_BOT_TOKEN")
-        account = os.environ.get("CAPITALIST_ACCOUNT")
         if is_placeholder(token):
             raise RuntimeError("Set TELEGRAM_BOT_TOKEN.")
-        if is_placeholder(account):
-            raise RuntimeError("Set CAPITALIST_ACCOUNT.")
         allowed_ids, allowed_usernames = parse_allowed_users(os.environ.get("CAPITALIST_ALLOWED_USERS", ""))
         return cls(
             token=token,
-            account=account,
             allowed_ids=frozenset(allowed_ids),
             allowed_usernames=frozenset(allowed_usernames),
         )
@@ -124,7 +119,7 @@ def handle_message(message: dict[str, Any], *, config: BotConfig, telegram: Tele
         return
 
     try:
-        address = capitalist.usdt_trc20_autoconvert_address(config.account)
+        address = capitalist.usdt_trc20_address()
     except CapitalistError as exc:
         telegram.send_message(chat_id, f"Ошибка Capitalist API: {exc}", show_keyboard=True)
         return
